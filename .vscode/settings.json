@@ -1,0 +1,15 @@
+{
+	"zebra.colors": {
+		".vscode": "zebra.color1",
+		"node_modules/.bin": "zebra.color2",
+		"src": "zebra.color3"
+	},
+	"workbench.colorCustomizations": {
+		"zebra.color1": "#8cb4d5",
+		"zebra.color2": "#9cb15f",
+		"zebra.color3": "#C17A36"
+	},
+	"cSpell.words": [
+		"vscodeignore"
+	]
+}

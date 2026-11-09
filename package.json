@@ -1,0 +1,710 @@
+{
+	"name": "zebra",
+	"displayName": "Zebra",
+	"author": "LaraSQP",
+	"publisher": "LaraSQP",
+	"description": "Colorize vsCode folders, files, and editor tabs",
+	"version": "0.2.0",
+	"icon": "images/zebra-icon.png",
+	"license": "MIT",
+	"main": "./out/extension.js",
+	"engines": {
+		"vscode": "^1.145.0"
+	},
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"devDependencies": {
+		"@types/vscode": "^1.145.0",
+		"@vscode/vsce": "^4.1.0",
+		"typescript": "^7.0.2"
+	},
+	"scripts": {
+		"generate": "node scripts/GenerateColors.mjs",
+		"compile": "tsc -p ./",
+		"package": "npm run generate && npm run compile && vsce package --out ./..out/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/LaraSQP/Zebra.git"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"command": "zebra.copyFilename",
+				"title": "Copy Filename"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "zebra.copyFilename",
+					"when": "resourceScheme == file",
+					"group": "6_copypath"
+				}
+			],
+			"editor/title/context": [
+				{
+					"command": "zebra.copyFilename",
+					"group": "1_cutcopypaste"
+				}
+			]
+		},
+		"configuration": {
+			"title": "Zebra",
+			"properties": {
+				"zebra.colors": {
+					"type": "object",
+					"default": {},
+					"description": "Folder names and their assigned colors",
+					"additionalProperties": {
+						"type": "string",
+						"pattern": "^(#[0-9A-Fa-f]{6}|zebra\\.color([1-9]|[12][0-9]|3[0-2]))$"
+					}
+				}
+			}
+		},
+		"colors": [
+			{
+				"id": "zebra.color1",
+				"description": "Zebra color slot 1",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color2",
+				"description": "Zebra color slot 2",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color3",
+				"description": "Zebra color slot 3",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color4",
+				"description": "Zebra color slot 4",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color5",
+				"description": "Zebra color slot 5",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color6",
+				"description": "Zebra color slot 6",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color7",
+				"description": "Zebra color slot 7",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color8",
+				"description": "Zebra color slot 8",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color9",
+				"description": "Zebra color slot 9",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color10",
+				"description": "Zebra color slot 10",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color11",
+				"description": "Zebra color slot 11",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color12",
+				"description": "Zebra color slot 12",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color13",
+				"description": "Zebra color slot 13",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color14",
+				"description": "Zebra color slot 14",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color15",
+				"description": "Zebra color slot 15",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color16",
+				"description": "Zebra color slot 16",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color17",
+				"description": "Zebra color slot 17",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color18",
+				"description": "Zebra color slot 18",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color19",
+				"description": "Zebra color slot 19",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color20",
+				"description": "Zebra color slot 20",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color21",
+				"description": "Zebra color slot 21",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color22",
+				"description": "Zebra color slot 22",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color23",
+				"description": "Zebra color slot 23",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color24",
+				"description": "Zebra color slot 24",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color25",
+				"description": "Zebra color slot 25",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color26",
+				"description": "Zebra color slot 26",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color27",
+				"description": "Zebra color slot 27",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color28",
+				"description": "Zebra color slot 28",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color29",
+				"description": "Zebra color slot 29",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color30",
+				"description": "Zebra color slot 30",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color31",
+				"description": "Zebra color slot 31",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.color32",
+				"description": "Zebra color slot 32",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto1",
+				"description": "Zebra automatic color slot 1",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto2",
+				"description": "Zebra automatic color slot 2",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto3",
+				"description": "Zebra automatic color slot 3",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto4",
+				"description": "Zebra automatic color slot 4",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto5",
+				"description": "Zebra automatic color slot 5",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto6",
+				"description": "Zebra automatic color slot 6",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto7",
+				"description": "Zebra automatic color slot 7",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto8",
+				"description": "Zebra automatic color slot 8",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto9",
+				"description": "Zebra automatic color slot 9",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto10",
+				"description": "Zebra automatic color slot 10",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto11",
+				"description": "Zebra automatic color slot 11",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto12",
+				"description": "Zebra automatic color slot 12",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto13",
+				"description": "Zebra automatic color slot 13",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto14",
+				"description": "Zebra automatic color slot 14",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto15",
+				"description": "Zebra automatic color slot 15",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto16",
+				"description": "Zebra automatic color slot 16",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto17",
+				"description": "Zebra automatic color slot 17",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto18",
+				"description": "Zebra automatic color slot 18",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto19",
+				"description": "Zebra automatic color slot 19",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto20",
+				"description": "Zebra automatic color slot 20",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto21",
+				"description": "Zebra automatic color slot 21",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto22",
+				"description": "Zebra automatic color slot 22",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto23",
+				"description": "Zebra automatic color slot 23",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto24",
+				"description": "Zebra automatic color slot 24",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto25",
+				"description": "Zebra automatic color slot 25",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto26",
+				"description": "Zebra automatic color slot 26",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto27",
+				"description": "Zebra automatic color slot 27",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto28",
+				"description": "Zebra automatic color slot 28",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto29",
+				"description": "Zebra automatic color slot 29",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto30",
+				"description": "Zebra automatic color slot 30",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto31",
+				"description": "Zebra automatic color slot 31",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			},
+			{
+				"id": "zebra.auto32",
+				"description": "Zebra automatic color slot 32",
+				"defaults": {
+					"dark": "#ff0011",
+					"light": "#ff0011",
+					"highContrast": "#ff0011",
+					"highContrastLight": "#ff0011"
+				}
+			}
+		]
+	}
+}

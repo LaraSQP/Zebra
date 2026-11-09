@@ -1,0 +1,20 @@
+# Development sources and configuration
+.vscode/**
+src/**
+scripts/**
+tsconfig.json
+package-lock.json
+.editorconfig
+.gitignore
+.vscodeignore
+..out/
+
+# Dependencies used only for development/building
+node_modules/**
+
+# Source maps are not needed in the installed extension
+out/**/*.map
+
+# Repository and generated package files
+.git/**
+*.vsix

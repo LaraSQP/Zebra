@@ -1,0 +1,22 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			// Name shown in the Run and Debug selector
+			"name": "Run Zebra",
+
+			// Launch a separate vsCode instance for extension development
+			"type": "extensionHost",
+			"request": "launch",
+
+			// Tell the new instance where our extension is located
+			"args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+
+			// Tell the debugger where the compiled JavaScript is
+			"outFiles": ["${workspaceFolder}/out/**/*.js"],
+
+			// Compile before launching the extension
+			"preLaunchTask": "Compile Zebra"
+		}
+	]
+}
