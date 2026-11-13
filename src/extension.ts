@@ -4,23 +4,37 @@ import * as vscode from "vscode";
 const MAX_COLORS = 32;
 
 // Activate Zebra
-export function activate(context: vscode.ExtensionContext) {
-	// Copy the selected file's name to the clipboard
+export function activate( context: vscode.ExtensionContext )
+{
+	// Copy the selected file names to the clipboard
 	context.subscriptions.push(
 		vscode.commands.registerCommand(
 			"zebra.copyFilename",
-			async (uri: vscode.Uri) => {
-				const filename = uri.path.split("/").pop() ?? "";
-				await vscode.env.clipboard.writeText(filename);
+			async ( uri: vscode.Uri, resourceUris?: vscode.Uri[] ) =>
+			{
+				// Use all selected resources, falling back to the single resource
+				const selectedUris = resourceUris?.length
+					? resourceUris
+					: uri
+						? [ uri ]
+						: [];
+
+				// Collect the names of all selected files and folders
+				const filenames = selectedUris.map(
+					( selectedUri ) => selectedUri.path.split( "/" ).pop() ?? "",
+				);
+
+				// Copy the names to the clipboard, one per line
+				await vscode.env.clipboard.writeText( filenames.join( "\n" ) );
 			},
 		),
 	);
 
 	// Get Zebra's configuration
-	const config = vscode.workspace.getConfiguration("zebra");
+	const config = vscode.workspace.getConfiguration( "zebra" );
 
 	// Read the folder-to-color dictionary
-	let colors = config.get<Record<string, string>>("colors", {});
+	let colors = config.get<Record<string, string>>( "colors", {} );
 
 	// Map each configured hex color to one of Zebra's automatic theme color IDs
 	let colorSlots = new Map<string, string>();
@@ -31,9 +45,11 @@ export function activate(context: vscode.ExtensionContext) {
 	>();
 
 	// Update the automatic theme color slots from the current configuration
-	async function UpdateColorSlots(): Promise<void> {
+	async function UpdateColorSlots(): Promise<void>
+	{
 		// There is nowhere to store workspace-specific colors without a workspace
-		if (!vscode.workspace.workspaceFolders?.length) {
+		if( !vscode.workspace.workspaceFolders?.length )
+		{
 			return;
 		}
 
@@ -44,9 +60,11 @@ export function activate(context: vscode.ExtensionContext) {
 		const zebraColors: Record<string, string> = {};
 
 		// Assign a slot to each distinct configured hex color
-		for (const value of Object.values(colors)) {
+		for( const value of Object.values( colors ) )
+		{
 			// Ignore values that are not six-digit hex colors
-			if (!/^#[0-9A-Fa-f]{6}$/.test(value)) {
+			if( !/^#[0-9A-Fa-f]{6}$/.test( value ) )
+			{
 				continue;
 			}
 
@@ -54,12 +72,14 @@ export function activate(context: vscode.ExtensionContext) {
 			const normalizedHex = value.toUpperCase();
 
 			// Reuse the slot if this color has already been assigned
-			if (nextSlots.has(normalizedHex)) {
+			if( nextSlots.has( normalizedHex ) )
+			{
 				continue;
 			}
 
 			// Stop if all available automatic slots have been assigned
-			if (nextSlots.size >= MAX_COLORS) {
+			if( nextSlots.size >= MAX_COLORS )
+			{
 				console.warn(
 					`Zebra supports a maximum of ${MAX_COLORS} automatic colors`,
 				);
@@ -70,14 +90,14 @@ export function activate(context: vscode.ExtensionContext) {
 			const slotId = `zebra.auto${nextSlots.size + 1}`;
 
 			// Associate the hex value with its automatic theme color ID
-			nextSlots.set(normalizedHex, slotId);
+			nextSlots.set( normalizedHex, slotId );
 
 			// Prepare the corresponding workbench color customization
-			zebraColors[slotId] = normalizedHex;
+			zebraColors[ slotId ] = normalizedHex;
 		}
 
 		// Get the Workbench configuration
-		const workbenchConfig = vscode.workspace.getConfiguration("workbench");
+		const workbenchConfig = vscode.workspace.getConfiguration( "workbench" );
 
 		// Inspect the existing workspace-level color customizations
 		const inspected = workbenchConfig.inspect<Record<string, unknown>>(
@@ -92,14 +112,16 @@ export function activate(context: vscode.ExtensionContext) {
 		const updated: Record<string, unknown> = { ...existing };
 
 		// Remove the previous Zebra automatic color assignments
-		for (let i = 1; i <= MAX_COLORS; i++) {
-			delete updated[`zebra.auto${i}`];
+		for( let i = 1; i <= MAX_COLORS; i++ )
+		{
+			delete updated[ `zebra.auto${i}` ];
 		}
 
 		// Add the current Zebra automatic color assignments
-		Object.assign(updated, zebraColors);
+		Object.assign( updated, zebraColors );
 
-		try {
+		try
+		{
 			// Save the automatic color assignments to the workspace settings
 			await workbenchConfig.update(
 				"colorCustomizations",
@@ -111,16 +133,18 @@ export function activate(context: vscode.ExtensionContext) {
 			colorSlots = nextSlots;
 
 			// Tell vsCode to request the decorations again
-			decorationChanged.fire(undefined);
+			decorationChanged.fire( undefined );
 
 			// Log the assigned automatic colors for diagnostics
-			if (context.extensionMode === vscode.ExtensionMode.Development) {
+			if( context.extensionMode === vscode.ExtensionMode.Development )
+			{
 				console.log(
 					"Zebra automatic color slots:",
-					Object.fromEntries(colorSlots),
+					Object.fromEntries( colorSlots ),
 				);
 			}
-		} catch (error) {
+		} catch( error )
+		{
 			// Report an error if the workspace settings could not be updated
 			console.error(
 				"Zebra could not update workbench color customizations:",
@@ -137,67 +161,78 @@ export function activate(context: vscode.ExtensionContext) {
 		// Provide a decoration for a file or folder
 		provideFileDecoration(
 			uri: vscode.Uri,
-		): vscode.FileDecoration | undefined {
+		): vscode.FileDecoration | undefined
+		{
 			// Find the workspace folder containing this resource
-			const workspaceFolder = vscode.workspace.getWorkspaceFolder(uri);
+			const workspaceFolder = vscode.workspace.getWorkspaceFolder( uri );
 
 			// Ignore resources outside the workspace
-			if (!workspaceFolder) {
+			if( !workspaceFolder )
+			{
 				return undefined;
 			}
 
 			// Get the path relative to the workspace root
 			const relativePath = vscode.workspace
-				.asRelativePath(uri, false)
-				.replace(/\\/g, "/")
-				.replace(/^\.\/+/, "")
-				.replace(/\/+$/, "");
+				.asRelativePath( uri, false )
+				.replace( /\\/g, "/" )
+				.replace( /^\.\/+/, "" )
+				.replace( /\/+$/, "" );
 
 			// Keep track of the best matching color rule
 			let bestColor: string | undefined;
 			let bestScore = -1;
 
 			// Check every configured folder and path
-			for (const [key, value] of Object.entries(colors)) {
+			for( const [ key, value ] of Object.entries( colors ) )
+			{
 				// Normalize the configured path
 				const folderPath = key
-					.replace(/\\/g, "/")
-					.replace(/^\/+|\/+$/g, "");
+					.replace( /\\/g, "/" )
+					.replace( /^\/+|\/+$/g, "" );
 
 				// Ignore empty configuration keys
-				if (!folderPath) {
+				if( !folderPath )
+				{
 					continue;
 				}
 
 				// Ignore values that are neither hex colors nor manual color IDs
-				if (
-					!/^#[0-9A-Fa-f]{6}$/.test(value) &&
-					!/^zebra\.color([1-9]|[12][0-9]|3[0-2])$/.test(value)
-				) {
+				if(
+					!/^#[0-9A-Fa-f]{6}$/.test( value ) &&
+					!/^zebra\.color([1-9]|[12][0-9]|3[0-2])$/.test( value )
+				)
+				{
 					continue;
 				}
 
 				// Check whether this is a full relative path or a folder name
-				if (folderPath.includes("/")) {
+				if( folderPath.includes( "/" ) )
+				{
 					// Match the exact path and all its descendants
-					if (
+					if(
 						relativePath === folderPath ||
-						relativePath.startsWith(folderPath + "/")
-					) {
+						relativePath.startsWith( folderPath + "/" )
+					)
+					{
 						// Prefer the longest matching path
 						const score = 100000 + folderPath.length;
 
 						// Keep the most specific matching rule
-						if (score > bestScore) {
+						if( score > bestScore )
+						{
 							bestScore = score;
 							bestColor = value;
 						}
 					}
-				} else {
+				} else
+				{
 					// Match a folder name anywhere in the relative path
-					if (relativePath.split("/").includes(folderPath)) {
+					if( relativePath.split( "/" ).includes( folderPath ) )
+					{
 						// Folder-name matches have lower priority than full paths
-						if (bestScore < 1) {
+						if( bestScore < 1 )
+						{
 							bestScore = 1;
 							bestColor = value;
 						}
@@ -206,7 +241,8 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 
 			// Return no decoration if there is no matching color rule
-			if (!bestColor) {
+			if( !bestColor )
+			{
 				return undefined;
 			}
 
@@ -218,13 +254,14 @@ export function activate(context: vscode.ExtensionContext) {
 				: undefined;
 
 			// Otherwise, find the automatic slot assigned to the hex color
-			const automaticSlot = colorSlots.get(bestColor.toUpperCase());
+			const automaticSlot = colorSlots.get( bestColor.toUpperCase() );
 
 			// Select the appropriate theme color ID
 			const slotId = manualSlot ?? automaticSlot;
 
 			// Return no decoration if the color has no available slot
-			if (!slotId) {
+			if( !slotId )
+			{
 				return undefined;
 			}
 
@@ -232,40 +269,42 @@ export function activate(context: vscode.ExtensionContext) {
 			return new vscode.FileDecoration(
 				undefined,
 				undefined,
-				new vscode.ThemeColor(slotId),
+				new vscode.ThemeColor( slotId ),
 			);
 		},
 	};
 
 	// Register the provider with vsCode
 	context.subscriptions.push(
-		vscode.window.registerFileDecorationProvider(provider),
+		vscode.window.registerFileDecorationProvider( provider ),
 	);
 
 	// Listen for changes to Zebra's color settings
 	context.subscriptions.push(
-		vscode.workspace.onDidChangeConfiguration((event) => {
+		vscode.workspace.onDidChangeConfiguration( ( event ) =>
+		{
 			// Ignore configuration changes unrelated to Zebra's colors
-			if (!event.affectsConfiguration("zebra.colors")) {
+			if( !event.affectsConfiguration( "zebra.colors" ) )
+			{
 				return;
 			}
 
 			// Read the updated folder-to-color dictionary
 			colors = vscode.workspace
-				.getConfiguration("zebra")
-				.get<Record<string, string>>("colors", {});
+				.getConfiguration( "zebra" )
+				.get<Record<string, string>>( "colors", {} );
 
 			// Reassign the automatic theme color slots
 			void UpdateColorSlots();
-		}),
+		} ),
 	);
 
 	// Register the event emitter for automatic cleanup
-	context.subscriptions.push(decorationChanged);
+	context.subscriptions.push( decorationChanged );
 
 	// Assign the initial automatic color slots
 	void UpdateColorSlots();
 }
 
 // Deactivate Zebra
-export function deactivate() {}
+export function deactivate() { }

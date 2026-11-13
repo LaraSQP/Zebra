@@ -9,7 +9,23 @@
 		"zebra.color2": "#9cb15f",
 		"zebra.color3": "#C17A36"
 	},
-	"cSpell.words": [
-		"vscodeignore"
-	]
+	"cSpell.words": ["vscodeignore"],
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"js/ts.format.enabled": true,
+	"js/ts.format.insertSpaceAfterCommaDelimiter": true,
+	"js/ts.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"js/ts.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+	"js/ts.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+	"js/ts.format.insertSpaceBeforeAndAfterBinaryOperators": true,
+	"js/ts.format.placeOpenBraceOnNewLineForFunctions": true,
+	"js/ts.format.placeOpenBraceOnNewLineForControlBlocks": true,
+	"js/ts.format.semicolons": "insert",
+	"js/ts.format.insertSpaceAfterSemicolonInForStatements": true,
+	"js/ts.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+	"js/ts.format.indentSwitchCase": true
 }
