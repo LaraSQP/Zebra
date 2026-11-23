@@ -17,7 +17,7 @@ This extension lets you assign colors to folders by name or by workspace-relativ
 
 ## Configuration
 
-Add a `zebra.colors` object to your vsCode settings. Each property maps a folder name or workspace-relative path to a color.
+Add a `zebra.folders` object to your vsCode settings. Each property maps a folder name or workspace-relative path to a color.
 
 ### Automatic colors
 
@@ -25,7 +25,7 @@ Use a six-digit hexadecimal color. Zebra assigns it to an available automatic co
 
 ```json
 {
-    "zebra.colors": {
+    "zebra.folders": {
         ".vscode": "#4682B4",
         "node_modules/.bin": "#718C28",
         "src": "#C17A36"
@@ -45,7 +45,7 @@ You can also reference one of Zebra's 32 contributed palette color IDs. Define t
 
 ```json
 {
-    "zebra.colors": {
+    "zebra.folders": {
         "src": "zebra.color17",
         "node_modules/.bin": "zebra.color3"
     },
@@ -58,7 +58,7 @@ You can also reference one of Zebra's 32 contributed palette color IDs. Define t
 
 Manual palette IDs range from `zebra.color1` through `zebra.color32`. Zebra does not assign or change their color values.
 
-Automatic slots (`zebra.auto1` through `zebra.auto32`) are managed internally by Zebra; you do not need to reference them in `zebra.colors`.
+Automatic slots (`zebra.auto1` through `zebra.auto32`) are managed internally by Zebra; you do not need to reference them in `zebra.folders`.
 
 ## Path matching
 
