@@ -1,0 +1,44 @@
+# Packaged extension files
+*.vsix
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Installed dependencies used only for development/building
+node_modules/
+
+# --- Database dumps and backups (can contain credentials)
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.orig
+
+# Logs
+*.log
+error_log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Compiled extension output (regenerate with npm run compile)
+out/
+
+# Ignore root-level dot folders and their contents
+.*/**
+
+# Keep this dot folder exceptions
+!.vscode/
+!.vscode/**
+!.github/
+!.github/**
+
+

@@ -1,0 +1,22 @@
+# Packaged extension files
+*.vsix
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Dependencies used only for development/building
+node_modules/
+
+# Dot folders (root only)
+.*/**
+
+# Development sources and configuration
+src/**
+scripts/**
+tsconfig.json
+package-lock.json
+build.mjs
+
+# Source maps are not needed in the installed extension
+out/**/*.map

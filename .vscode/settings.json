@@ -1,0 +1,56 @@
+{
+	"zebra.folders": {
+		".vscode": "zebra.color1",
+		"src": "zebra.color2",
+		"..out": "zebra.color3",
+		".devCodeTracker": "zebra.color3",
+		"node_modules": "zebra.color3"
+	},
+	"workbench.colorCustomizations": {
+		"zebra.color1": "#8cb4d5",
+		"zebra.color2": "#9cb15f",
+		"zebra.color3": "#C17A36"
+	},
+
+	"codealign.commentSeparators": ["//", "#", "--"],
+
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.tabSize": 4,
+	"editor.formatOnPaste": true,
+
+	"js/ts.format.enabled": true,
+	"js/ts.format.insertSpaceAfterCommaDelimiter": true,
+	"js/ts.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"js/ts.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+	"js/ts.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+	"js/ts.format.insertSpaceBeforeAndAfterBinaryOperators": true,
+	"js/ts.format.placeOpenBraceOnNewLineForFunctions": true,
+	"js/ts.format.placeOpenBraceOnNewLineForControlBlocks": true,
+	"js/ts.format.semicolons": "insert",
+	"js/ts.format.insertSpaceAfterSemicolonInForStatements": true,
+	"js/ts.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+	"js/ts.format.indentSwitchCase": true,
+
+	"cSpell.words": ["copypath", "cutcopypaste", "vscodeignore"],
+
+	"seagull.categoryOrder": [
+		"functions",
+		"events",
+		"classes",
+		"interfaces",
+		"types",
+		"namespaces",
+		"variables",
+		"constants",
+		"data",
+		"other"
+	],
+}
